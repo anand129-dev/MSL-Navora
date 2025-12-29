@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme{
+    --color-primary: #1E40AF;
+    --color-secondary: #FBBF24;
+    --font-display: 'Inter', sans-serif;
+}
+
+/*
+Source - https://stackoverflow.com/a
+Posted by nayemalways, modified by community. See post 'Timeline' for change history
+Retrieved 2025-12-29, License - CC BY-SA 4.0
+*/
+
+    @layer base {
+      * {
+        /* margin: 0; */
+        /* padding: 0; */
+        box-sizing: border-box;
+        /* scroll-behavior: smooth; */
+      }
+    }
+
+
+html {
+  font-family: var(--font-display);
+}
