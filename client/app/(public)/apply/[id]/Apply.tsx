@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "react-phone-number-input/style.css";
+import { E164Number } from "libphonenumber-js";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Dynamic import for PhoneInput to prevent SSR hydration errors
@@ -20,11 +21,11 @@ type Job = {
   description?: string;
 };
 
-export default function SendEmailForm() {
+export default function Apply() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [previousEmployment, setPreviousEmployment] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState<E164Number | undefined>();
   const [job, setJob] = useState<Job | null>(null);
   const params = useParams();
   const jobId = params.id;
