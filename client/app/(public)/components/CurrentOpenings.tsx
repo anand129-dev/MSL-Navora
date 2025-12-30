@@ -75,7 +75,10 @@ export default function JobList() {
   }, []);
 
   return (
-    <div className="flex justify-center bg-white py-12">
+    <section
+      id="current-openings"
+      className="flex justify-center bg-white py-12"
+    >
       <div className="//p-6 //sm:p-8 //lg:py-12 w-full max-w-7xl">
         {/* ---------------- HEADER (ALWAYS VISIBLE) ---------------- */}
         <div className="flex justify-between py-4">
@@ -209,6 +212,6 @@ export default function JobList() {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
