@@ -40,7 +40,7 @@ export default function Apply() {
     if (!jobId) return;
     const fetchJob = async () => {
       try {
-        const res = await fetch(`${API_URL}/jobs/${jobId}`, {
+        const res = await fetch(`${API_URL}/api/jobs/${jobId}`, {
           cache: "no-store",
         });
         const json = await res.json();

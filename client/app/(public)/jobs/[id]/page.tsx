@@ -22,7 +22,7 @@ export default async function JobDetailPage(props: Props) {
   // console.log("params.id received:", id); // ✅ Should log actual id
 
   try {
-    const res = await fetch(`${API_URL}/jobs/${id}`, {
+    const res = await fetch(`${API_URL}/api/jobs/${id}`, {
       cache: "no-store",
     });
 

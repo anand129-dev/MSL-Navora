@@ -37,7 +37,7 @@ export default function JobList() {
 
       const fetchJobs = async () => {
         try {
-          const res = await fetch(`${API_URL}/jobs`, {
+          const res = await fetch(`${API_URL}/api/jobs`, {
             signal: controller.signal,
           });
           const result = await res.json();
