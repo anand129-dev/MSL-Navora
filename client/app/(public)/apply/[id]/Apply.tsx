@@ -3,28 +3,43 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "react-phone-number-input/style.css";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Dynamic import for PhoneInput to prevent SSR hydration errors
 const PhoneInput = dynamic(() => import("react-phone-number-input"), {
   ssr: false,
 });
 
+type Job = {
+  _id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  isActive?: boolean;
+  description?: string;
+};
+
 export default function SendEmailForm() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [previousEmployment, setPreviousEmployment] = useState("");
   const [phone, setPhone] = useState("");
-  const [job, setJob] = useState(null);
+  const [job, setJob] = useState<Job | null>(null);
   const params = useParams();
   const jobId = params.id;
   const imageUrl = "/hero-background.jpg";
+
+  if (!process.env.NEXT_PUBLIC_API_URL) {
+    throw new Error("NEXT_PUBLIC_API_URL is not defined");
+  }
 
   //  Fetch Job Details from API
   useEffect(() => {
     if (!jobId) return;
     const fetchJob = async () => {
       try {
-        const res = await fetch("http://localhost:4080/api/jobs/${jobId}", {
+        const res = await fetch(`${API_URL}/jobs/${jobId}`, {
           cache: "no-store",
         });
         const json = await res.json();
@@ -49,6 +64,8 @@ export default function SendEmailForm() {
       }
     }
 
+    if (!job) return;
+
     data.jobId = job?._id;
     data.jobTitle = job?.title;
     data.jobDepartment = job?.department;
@@ -58,18 +75,18 @@ export default function SendEmailForm() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Image */}
-      <div className="relative w-full h-[50vh] overflow-hidden hidden md:block">
+      <div className="relative hidden h-[50vh] w-full overflow-hidden md:block">
         <img
           src={imageUrl}
           alt="A beautiful landscape hero background"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white z-1"></div>
+        <div className="absolute inset-0 z-0 bg-linear-to-b from-transparent to-white"></div>
       </div>
 
-      <main className="absolute  bg-white top-24 md:top-56 inset-x-0 mx-auto w-full md:max-w-4xl lg:max-w-5xl xl:max-w-7xl md:shadow-2xl px-4 sm:px-6 lg:px-8 py-10">
+      <main className="absolute inset-x-0 top-24 mx-auto w-full bg-white px-4 py-10 sm:px-6 md:top-56 md:max-w-4xl md:shadow-2xl lg:max-w-5xl lg:px-8 xl:max-w-7xl">
         <div className="space-y-3">
           {/* Job ID */}
           <div className="text-sm text-gray-500">
@@ -78,10 +95,10 @@ export default function SendEmailForm() {
           </div>
 
           {/* Title */}
-          <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
+          <h1 className="text-xl font-semibold text-gray-800 md:text-2xl">
             Apply for {job?.title}
             {job?.department && (
-              <span className="text-gray-500 font-medium">
+              <span className="font-medium text-gray-500">
                 {" "}
                 · {job.department}
               </span>
@@ -89,9 +106,9 @@ export default function SendEmailForm() {
           </h1>
 
           {/* Meta info */}
-          <div className="flex flex-wrap gap-6 mt-2">
+          <div className="mt-2 flex flex-wrap gap-6">
             {/* Location */}
-            <div className="flex items-center gap-2 text-gray-500 text-sm">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
               <svg
                 width={18}
                 height={18}
@@ -108,7 +125,7 @@ export default function SendEmailForm() {
             </div>
 
             {/* Job Type */}
-            <div className="flex items-center gap-2 text-gray-500 text-sm">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
               <svg
                 width={18}
                 height={18}
@@ -137,13 +154,13 @@ export default function SendEmailForm() {
         </div>
 
         {/* Horizontal Bar */}
-        <div className="w-full h-[2px] bg-blue-500 my-4"></div>
+        <div className="my-4 h-[2px] w-full bg-blue-500"></div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Full Name */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               Full Name<span className="text-red-500">*</span>
             </p>
             <input
@@ -152,13 +169,13 @@ export default function SendEmailForm() {
               required
               defaultValue=""
               placeholder="Enter your full name"
-              className="w-full md:w-2/3 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-0 focus:border-gray-400"
+              className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gray-400 focus:ring-0 focus:outline-none md:w-2/3"
             />
           </div>
 
           {/* Email */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               Email Address<span className="text-red-500">*</span>
             </p>
             <input
@@ -167,13 +184,13 @@ export default function SendEmailForm() {
               required
               defaultValue=""
               placeholder="you@example.com"
-              className="w-full md:w-2/3 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-0 focus:border-gray-400"
+              className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gray-400 focus:ring-0 focus:outline-none md:w-2/3"
             />
           </div>
 
           {/* Phone Number */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               Phone Number<span className="text-red-500">*</span>
             </p>
             <div className="w-full md:w-2/3">
@@ -183,44 +200,41 @@ export default function SendEmailForm() {
                 placeholder="Enter phone number"
                 value={phone}
                 onChange={setPhone}
-                className="PhoneInput border border-gray-300 rounded-md px-4 py-2 w-full"
+                className="PhoneInput w-full rounded-md border border-gray-300 px-4 py-2"
               />
               <input type="hidden" name="phone" value={phone || ""} />
             </div>
           </div>
 
           {/* Resume Upload */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               Upload Your Resume<span className="text-red-500">*</span>
             </p>
-            <div className="w-full md:w-2/3 flex flex-col gap-1">
+            <div className="flex w-full flex-col gap-1 md:w-2/3">
               <input
                 type="file"
                 name="resume"
                 accept=".pdf,.doc,.docx"
                 required
-                className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-0 focus:border-gray-400
-                           file:border-0 file:bg-blue-600 file:text-white file:px-4 file:py-2 file:rounded-md
-                           file:cursor-pointer hover:file:bg-blue-700 w-full"
+                className="w-full rounded-md border border-gray-300 px-4 py-2 file:cursor-pointer file:rounded-md file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-700 focus:border-gray-400 focus:ring-0 focus:outline-none"
               />
-              <p className="text-gray-400 text-sm">
+              <p className="text-sm text-gray-400">
                 Accepted formats: PDF, DOC, DOCX. Max size: 5MB
               </p>
             </div>
           </div>
 
           {/* Source Dropdown */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               How Did You Hear About Us?
             </p>
             <select
               name="source"
               required
               defaultValue=""
-              className="w-full md:w-2/3 border border-gray-300 rounded-md px-4 py-2 bg-white
-                         focus:outline-none focus:ring-0 focus:border-gray-400"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 focus:border-gray-400 focus:ring-0 focus:outline-none md:w-2/3"
             >
               <option value="" disabled hidden>
                 Please select
@@ -236,12 +250,12 @@ export default function SendEmailForm() {
           </div>
 
           {/* Previous Employment */}
-          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 w-full">
-            <p className="w-full md:w-1/3 text-gray-500 font-light text-left md:text-right">
+          <div className="flex w-full flex-col gap-1 md:flex-row md:items-center md:gap-4">
+            <p className="w-full text-left font-light text-gray-500 md:w-1/3 md:text-right">
               Have you been employed through Navora in the past?
               <span className="text-red-500">*</span>
             </p>
-            <div className="w-full md:w-2/3 flex flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:w-2/3">
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2">
                   <input
@@ -272,7 +286,7 @@ export default function SendEmailForm() {
                   type="text"
                   name="previousDetails"
                   placeholder="Please specify your previous role or period"
-                  className="w-full md:w-1/2 border border-gray-300 rounded-md px-4 py-2 mt-2"
+                  className="mt-2 w-full rounded-md border border-gray-300 px-4 py-2 md:w-1/2"
                   required
                 />
               )}
@@ -280,15 +294,15 @@ export default function SendEmailForm() {
           </div>
 
           {/* Consent */}
-          <div className="flex flex-col gap-2 mt-6">
+          <div className="mt-6 flex flex-col gap-2">
             <label className="flex items-start gap-3">
               <input
                 type="checkbox"
                 name="consent"
                 required
-                className="mt-1 accent-blue-600 w-4 h-4"
+                className="mt-1 h-4 w-4 accent-blue-600"
               />
-              <span className="text-gray-600 text-sm">
+              <span className="text-sm text-gray-600">
                 I agree to receive recruitment-related communications from
                 Navora, operated by MaritimeSolutionsLtd. I understand that my
                 personal information will be processed in accordance with the{" "}
@@ -306,11 +320,11 @@ export default function SendEmailForm() {
           </div>
 
           {/* Submit */}
-          <div className="flex justify-end mt-6">
+          <div className="mt-6 flex justify-end">
             <button
               type="submit"
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold"
+              className="rounded-md bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
             >
               {loading ? "Sending..." : "Submit Application"}
             </button>
@@ -318,7 +332,7 @@ export default function SendEmailForm() {
 
           {/* Status */}
           {status && (
-            <p className="mt-4 text-center text-green-600 font-medium">
+            <p className="mt-4 text-center font-medium text-green-600">
               {status}
             </p>
           )}

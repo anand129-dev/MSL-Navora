@@ -3,9 +3,9 @@ import HeroSection from "./components/Hero";
 
 export default function Home() {
   return (
-    <main>
+    <div>
       <HeroSection />
       <CurrentOpening />
-    </main>
+    </div>
   );
 }

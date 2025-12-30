@@ -15,64 +15,50 @@ type Job = {
 
 export default function JobList() {
   const router = useRouter();
-
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [starred, setStarred] = useState(false);
-
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+  // Initialize from sessionStorage if available
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [error, setError] = useState<string | null>(null);
+  // const [starred, setStarred] = useState(false);
+
   useEffect(() => {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    if (typeof window === "undefined") return; // server check
 
-    const fetchJobs = async () => {
-      try {
-        const res = await fetch(`${API_URL}/jobs`, {
-          signal: controller.signal,
-        });
+    const saved = sessionStorage.getItem("jobs");
+    if (saved) {
+      setJobs(JSON.parse(saved));
+      setLoading(false); // already have jobs, no need to fetch
+    } else {
+      // fetch from API here
+      const controller = new AbortController();
 
-        if (!res.ok) {
-          throw new Error("We’re unable to load current openings right now.");
-        }
-
-        const result = await res.json();
-
-        if (!result?.data || !Array.isArray(result.data)) {
-          throw new Error(
-            "Current openings are temporarily unavailable. Thank you for your patience.",
+      const fetchJobs = async () => {
+        try {
+          const res = await fetch(`${API_URL}/jobs`, {
+            signal: controller.signal,
+          });
+          const result = await res.json();
+          const activeJobs = result.data.filter(
+            (job: Job) => job.isActive && job._id && job.title && job.location,
           );
+          setJobs(activeJobs);
+          sessionStorage.setItem("jobs", JSON.stringify(activeJobs));
+        } catch (err: any) {
+          if (err.name === "AbortError") return;
+          setError("Unable to load jobs at the moment.");
+        } finally {
+          setLoading(false);
         }
+      };
 
-        const activeJobs = result.data.filter(
-          (job: Job) => job.isActive && job._id && job.title && job.location,
-        );
+      fetchJobs();
 
-        setJobs(activeJobs);
-      } catch (err: any) {
-        if (err.name === "AbortError") {
-          setError(
-            "This page is taking longer than expected to load. Please try again in a little while.",
-          );
-        } else {
-          setError(
-            "We’re unable to display current openings at the moment. Please check back shortly.",
-          );
-        }
-      } finally {
-        clearTimeout(timeoutId);
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
-
-    return () => {
-      controller.abort();
-      clearTimeout(timeoutId);
-    };
-  }, []);
+      return () => controller.abort();
+    }
+  }, [API_URL]);
 
   return (
     <section
