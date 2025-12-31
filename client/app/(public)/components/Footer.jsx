@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <img src="/Footer-logo.png" alt="MSL Logo" className="mb-4 w-24" />
 
-            <h3 className="text-lg font-semibold">Maritime Solutions Ltd</h3>
+            <h3 className="text-lg font-semibold">MaritimeSolutionsLtd</h3>
             <p className="mt-2 text-sm leading-6">
               Teddington, Greater London, England, UK <br />
               +44 (0)7788547223 <br />

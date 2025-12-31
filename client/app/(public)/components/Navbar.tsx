@@ -18,7 +18,7 @@ export default function Nav() {
           onClick={() => router.push("/")}
         >
           <Image src="/msllogo1.png" alt="MSL Logo" height={90} width={90} />
-          <p>Maritime Solutions Ltd</p>
+          <p>MaritimeSolutionsLtd</p>
         </div>
 
         {/* Desktop Menu */}
