@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "react-phone-number-input/style.css";
 import { E164Number } from "libphonenumber-js";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Dynamic import for PhoneInput to prevent SSR hydration errors
+// Prevent SSR issues
 const PhoneInput = dynamic(() => import("react-phone-number-input"), {
   ssr: false,
 });
@@ -22,22 +23,26 @@ type Job = {
 };
 
 export default function Apply() {
+  const params = useParams();
+  const jobId = params.id as string;
+
+  const [job, setJob] = useState<Job | null>(null);
+  const [phone, setPhone] = useState<E164Number | undefined>();
+    const [previousEmployment, setPreviousEmployment] = useState<"yes" | "no">(
+    "no"
+  );
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
-  const [previousEmployment, setPreviousEmployment] = useState("");
-  const [phone, setPhone] = useState<E164Number | undefined>();
-  const [job, setJob] = useState<Job | null>(null);
-  const params = useParams();
-  const jobId = params.id;
   const imageUrl = "/hero-background.jpg";
 
-  if (!process.env.NEXT_PUBLIC_API_URL) {
+  if (!API_URL) {
     throw new Error("NEXT_PUBLIC_API_URL is not defined");
   }
 
-  //  Fetch Job Details from API
+  /* Fetch job */
   useEffect(() => {
     if (!jobId) return;
+
     const fetchJob = async () => {
       try {
         const res = await fetch(`${API_URL}/api/jobs/${jobId}`, {
@@ -52,7 +57,7 @@ export default function Apply() {
     fetchJob();
   }, [jobId]);
 
-  
+  /* Submit */
  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
@@ -68,14 +73,10 @@ export default function Apply() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Ensure defaults
-    if (!formData.get("source")) {
-      formData.set("source", "unknown");
-    }
-    
-    if (!formData.get("previousEmployment")) {
-      formData.set("previousEmployment", previousEmployment || "no");
-    }
+    // Force required values (DO NOT trust browser)
+    formData.set("phone", phone);
+    formData.set("previousEmployment", previousEmployment);
+    formData.set("source", formData.get("source")?.toString() || "unknown");
 
     const res = await fetch(`${API_URL}/api/submit`, {
       method: "POST",
@@ -88,10 +89,10 @@ export default function Apply() {
       throw new Error(result.message || "Submission failed");
     }
 
-    setStatus("✅ Application submitted successfully. Check your email.");
+    setStatus("✅ Application submitted successfully. We will get back to you soon.");
     form.reset();
     setPhone(undefined);
-    setPreviousEmployment("");
+    setPreviousEmployment("no");
   } catch (error: any) {
     console.error("Submit error:", error);
     setStatus(`❌ ${error.message}`);
@@ -102,15 +103,15 @@ export default function Apply() {
 
 
 
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Image */}
-      <div className="relative hidden h-[50vh] w-full overflow-hidden md:block">
-        <img
-          src={imageUrl}
-          alt="A beautiful landscape hero background"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+ return (
+  <div className="min-h-screen bg-white">
+    {/* Hero Image */}
+    <div className="relative hidden h-[50vh] w-full overflow-hidden md:block">
+      <img
+        src={imageUrl}
+        alt="A beautiful landscape hero background"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
         <div className="absolute inset-0 z-0 bg-linear-to-b from-transparent to-white"></div>
       </div>
 
@@ -287,8 +288,8 @@ export default function Apply() {
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2">
                   <input
-                    type="hidden"
-                    // type="radio"
+                    // type="hidden"
+                    type="radio"
                     name="previousEmployment"
                     value={previousEmployment}
                     // value="yes"
@@ -368,6 +369,7 @@ export default function Apply() {
           )}
           <input type="hidden" name="jobId" value={job?._id || ""} />
           <input type="hidden" name="jobTitle" value={job?.title || ""} />
+          <input type="hidden" name="jobDepartment" value={job?.department || ""} />
           <input type="hidden" name="jobLocation" value={job?.location || ""} />
           <input type="hidden" name="jobType" value={job?.type || ""} />
         </form>

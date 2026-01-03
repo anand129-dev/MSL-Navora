@@ -6,7 +6,8 @@ const {
   MAIL_SECURE,
   MAIL_USER,
   MAIL_PASS,
-  MAIL_FROM
+  MAIL_FROM,
+  HR_CC
 } = process.env;
 
 if (!MAIL_HOST || !MAIL_USER || !MAIL_PASS) {
@@ -25,4 +26,4 @@ const transporter = nodemailer.createTransport({
 
 console.log("✅ Mailer configured");
 
-export { transporter, MAIL_FROM };
+export { transporter, MAIL_FROM, HR_CC };
