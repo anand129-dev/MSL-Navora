@@ -26,4 +26,5 @@ const transporter = nodemailer.createTransport({
 
 console.log("✅ Mailer configured");
 
+
 export { transporter, MAIL_FROM, HR_CC };

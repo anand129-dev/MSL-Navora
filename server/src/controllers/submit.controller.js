@@ -1,4 +1,4 @@
-import { transporter, MAIL_FROM } from "../config/mailer.js";
+import { transporter, MAIL_FROM, HR_CC } from "../config/mailer.js";
 
 export const submitForm = async (req, res, next) => {
   try {
@@ -157,7 +157,7 @@ const hrEmailHtml = `
       from: MAIL_FROM,
       to: MAIL_FROM, // HR email
       cc: HR_CC || undefined, // optional CC
-      subject: `New Application – ${fullName} (${jobTitle})`,
+      subject: `New Application – ${fullName} (${jobTitle}) | Navora (MSL)`,
       html: hrEmailHtml,
       attachments: req.file
         ? [
@@ -271,7 +271,7 @@ const hrEmailHtml = `
       from: MAIL_FROM,
       to: email, // candidate email
       // cc: MAIL_FROM, // optional: HR in CC
-      subject: `Application Received – ${jobTitle} | Navora`,
+      subject: `Thank You for Applying – ${jobTitle} | Navora (MSL)`,
       html: candidateEmailHtml,
     });
 
