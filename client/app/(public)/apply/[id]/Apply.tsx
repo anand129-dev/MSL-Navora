@@ -52,28 +52,55 @@ export default function Apply() {
     fetchJob();
   }, [jobId]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (!phone) {
+    setStatus("❌ Please enter a valid phone number");
+    return;
+  }
+
+  setLoading(true);
+  setStatus("");
+
+  try {
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data: Record<string, any> = {};
-    for (const [key, value] of formData.entries()) {
-      if (value instanceof File) {
-        data[key] = { name: value.name, size: value.size, type: value.type };
-      } else {
-        data[key] = value;
-      }
+
+    // Ensure defaults
+    if (!formData.get("source")) {
+      formData.set("source", "unknown");
+    }
+    
+    if (!formData.get("previousEmployment")) {
+      formData.set("previousEmployment", previousEmployment || "no");
     }
 
-    if (!job) return;
+    const res = await fetch(`${API_URL}/api/submit`, {
+      method: "POST",
+      body: formData,
+    });
 
-    data.jobId = job?._id;
-    data.jobTitle = job?.title;
-    data.jobDepartment = job?.department;
-    data.jobLocation = job?.location;
-    console.log("FINAL APPLICATION DATA 👇");
-    console.log(JSON.stringify(data, null, 2));
-  };
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.message || "Submission failed");
+    }
+
+    setStatus("✅ Application submitted successfully. Check your email.");
+    form.reset();
+    setPhone(undefined);
+    setPreviousEmployment("");
+  } catch (error: any) {
+    console.error("Submit error:", error);
+    setStatus(`❌ ${error.message}`);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -155,7 +182,7 @@ export default function Apply() {
         </div>
 
         {/* Horizontal Bar */}
-        <div className="my-4 h-[2px] w-full bg-blue-500"></div>
+        <div className="my-4 h-0.5 w-full bg-blue-500"></div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -233,7 +260,7 @@ export default function Apply() {
             </p>
             <select
               name="source"
-              required
+              // required
               defaultValue=""
               className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 focus:border-gray-400 focus:ring-0 focus:outline-none md:w-2/3"
             >
@@ -260,13 +287,15 @@ export default function Apply() {
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2">
                   <input
-                    type="radio"
+                    type="hidden"
+                    // type="radio"
                     name="previousEmployment"
-                    value="yes"
+                    value={previousEmployment}
+                    // value="yes"
                     className="accent-blue-600"
                     checked={previousEmployment === "yes"}
                     onChange={() => setPreviousEmployment("yes")}
-                    required
+                    // required
                   />
                   Yes
                 </label>
@@ -339,6 +368,8 @@ export default function Apply() {
           )}
           <input type="hidden" name="jobId" value={job?._id || ""} />
           <input type="hidden" name="jobTitle" value={job?.title || ""} />
+          <input type="hidden" name="jobLocation" value={job?.location || ""} />
+          <input type="hidden" name="jobType" value={job?.type || ""} />
         </form>
       </main>
     </div>

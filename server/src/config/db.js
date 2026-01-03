@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-
+import "./config/env.js";
 const connectDB = async () => {
   try {
-    const uri = process.env.MONGO_URI;
+    // const uri = process.env.MONGO_URI;
+    const uri="mongodb+srv://itsanand129_db_user:RXeCsaIHBrNk2wbk@mil-careers.0dbbpln.mongodb.net/?appName=mil-careers";
 
     console.log("DB FILE URI =", uri); // debug
 
