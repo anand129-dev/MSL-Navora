@@ -21,7 +21,23 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: MAIL_USER,
     pass: MAIL_PASS
+  },
+  tls: {
+    rejectUnauthorized: false, // FIX TLS handshake issue
   }
+});
+
+if (
+  (MAIL_PORT === "587" && MAIL_SECURE === "true") ||
+  (MAIL_PORT === "465" && MAIL_SECURE === "false")
+) {
+  console.warn("⚠️ SMTP port & secure mismatch");
+}
+
+
+transporter.verify((err) => {
+  if (err) console.error("❌ SMTP error:", err);
+  else console.log("✅ SMTP ready");
 });
 
 console.log("✅ Mailer configured");
