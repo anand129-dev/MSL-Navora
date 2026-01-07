@@ -1,4 +1,4 @@
-import { transporter, MAIL_FROM, HR_CC } from "../config/mailer.js";
+import { transporter, MAIL_FROM, HR_MAIL } from "../config/mailer.js";
 
 export const submitForm = async (req, res, next) => {
   try {
@@ -14,7 +14,7 @@ export const submitForm = async (req, res, next) => {
       jobDepartment,
       jobLocation,
       jobType,
-      jobReference
+      jobReference,
     } = req.body;
 
     if (!fullName || !email || !jobId || !jobTitle) {
@@ -34,7 +34,7 @@ export const submitForm = async (req, res, next) => {
     /* =========================
        1️⃣ INTERNAL HR EMAIL
     ========================= */
-const hrEmailHtml = `
+    const hrEmailHtml = `
 <!DOCTYPE html>
 <html>
   <body style="margin:0; padding:0; font-family: Arial, Helvetica, sans-serif; background-color:#f6f8fb;">
@@ -151,25 +151,23 @@ const hrEmailHtml = `
 </html>
 `;
 
-
     // Example usage in transporter.sendMail
     await transporter.sendMail({
-      from: MAIL_FROM,
-      to: MAIL_FROM, // HR email
-      cc: HR_CC || undefined, // optional CC
+      from: `"Navora Recruitment" <${MAIL_FROM}>`,
+      to: HR_MAIL, // HR email
+      // cc: HR_MAIL || undefined, // optional CC
       subject: `New Application – ${fullName} (${jobTitle}) | Navora (MSL)`,
       html: hrEmailHtml,
       attachments: req.file
         ? [
-          {
-            filename: req.file.originalname,
-            content: req.file.buffer,
-            contentType: req.file.mimetype,
-          },
-        ]
+            {
+              filename: req.file.originalname,
+              content: req.file.buffer,
+              contentType: req.file.mimetype,
+            },
+          ]
         : [],
     });
-
 
     /* =========================
        2️⃣ CANDIDATE THANK-YOU EMAIL
@@ -221,11 +219,15 @@ const hrEmailHtml = `
                   </tr>
                   <tr>
                     <td style="background:#f6f6f6;"><strong>Department</strong></td>
-                    <td style="word-break:break-word;">${jobDepartment || "N/A"}</td>
+                    <td style="word-break:break-word;">${
+                      jobDepartment || "N/A"
+                    }</td>
                   </tr>
                   <tr>
                     <td style="background:#f6f6f6;"><strong>Location</strong></td>
-                    <td style="word-break:break-word;">${jobLocation || "N/A"}</td>
+                    <td style="word-break:break-word;">${
+                      jobLocation || "N/A"
+                    }</td>
                   </tr>
                   <tr>
                     <td style="background:#f6f6f6;"><strong>Type</strong></td>
@@ -265,10 +267,9 @@ const hrEmailHtml = `
 </html>
 `;
 
-
     // Usage example:
     await transporter.sendMail({
-      from: MAIL_FROM,
+      from: `"Navora Recruitment" <${MAIL_FROM}>`,
       to: email, // candidate email
       // cc: MAIL_FROM, // optional: HR in CC
       subject: `Thank You for Applying – ${jobTitle} | Navora (MSL)`,
