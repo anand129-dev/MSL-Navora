@@ -1,4 +1,8 @@
 import { sendEmail } from "../config/smtp2go.js";
+import validator from "validator";
+
+// Helper: sanitize strings
+const sanitize = (value) => validator.escape(String(value || "").trim());
 
 const { HR_MAIL } = process.env;
 
@@ -28,19 +32,79 @@ export const submitForm = async (req, res, next) => {
       jobReference,
     } = req.body;
 
-    if (!fullName || !email || !jobId || !jobTitle) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing required fields",
-      });
+    // ✅ REQUIRED: candidate fields
+    if (!fullName || !email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing required candidate fields" });
     }
 
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "Resume is required",
-      });
+    // ✅ Candidate field validations
+    if (typeof fullName !== "string" || fullName.length > 100)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid full name" });
+
+    if (!validator.isEmail(email))
+      return res.status(400).json({ success: false, message: "Invalid email" });
+
+    if (phone && !validator.isMobilePhone(phone, "any"))
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid phone number" });
+
+    if (source.length > 50)
+      return res
+        .status(400)
+        .json({ success: false, message: "Source too long" });
+
+    if (!["yes", "no"].includes(previousEmployment))
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid previous employment value" });
+
+    if (previousDetails.length > 200)
+      return res
+        .status(400)
+        .json({ success: false, message: "Previous details too long" });
+
+    // ✅ Sanitize candidate fields to prevent XSS and normalize email
+    const sanitizedData = {
+      fullName: sanitize(fullName), // preserves spaces but escapes harmful characters
+      email: (() => {
+        const normalized = validator.normalizeEmail(email); // normalize email
+        return normalized || email; // fallback if normalization fails
+      })(),
+      phone: sanitize(phone), // phone number sanitized
+      source: sanitize(source),
+      previousEmployment: sanitize(previousEmployment),
+      previousDetails: sanitize(previousDetails),
+    };
+
+    // ✅ Validate normalized email
+    if (!validator.isEmail(sanitizedData.email)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid email address" });
     }
+
+    // ✅ Validate backend job fields
+    if (!jobId || !jobTitle)
+      return res
+        .status(400)
+        .json({ success: false, message: "Job ID and Title required" });
+
+    // Optional: enforce max lengths
+    if (jobTitle.length > 100 || (jobDepartment && jobDepartment.length > 50))
+      return res
+        .status(400)
+        .json({ success: false, message: "Job field too long" });
+
+    // ✅ Resume check
+    if (!req.file)
+      return res
+        .status(400)
+        .json({ success: false, message: "Resume is required" });
 
     /* =========================
        1️⃣ INTERNAL HR EMAIL
@@ -78,31 +142,31 @@ export const submitForm = async (req, res, next) => {
                 <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse;">
                   <tr>
                     <td width="40%" style="background:#f2f4f7;">Name</td>
-                    <td>${fullName}</td>
+                    <td>${sanitizedData.fullName}</td>
                   </tr>
                   <tr>
                     <td style="background:#f2f4f7;">Email</td>
-                    <td>${email}</td>
+                    <td>${sanitizedData.email}</td>
                   </tr>
                   <tr>
                     <td style="background:#f2f4f7;">Phone</td>
-                    <td>${phone}</td>
+                    <td>${sanitizedData.phone}</td>
                   </tr>
                   <tr>
                     <td style="background:#f2f4f7;">Previously employed with Navora</td>
-                    <td>${previousEmployment}</td>
+                    <td>${sanitizedData.previousEmployment}</td>
                   </tr>
                   ${
                     previousEmployment === "yes" && previousDetails
                       ? `<tr>
                            <td style="background:#f2f4f7;">Previous details</td>
-                           <td>${previousDetails}</td>
+                           <td>${sanitizedData.previousDetails}</td>
                          </tr>`
                       : ""
                   }
                   <tr>
                     <td style="background:#f2f4f7;">Source</td>
-                    <td>${source}</td>
+                    <td>${sanitizedData.source}</td>
                   </tr>
                 </table>
 
@@ -165,12 +229,16 @@ export const submitForm = async (req, res, next) => {
     // Example usage in transporter.sendMail
     const hrAttachments = req.file ? [fileToAttachment(req.file)] : [];
 
-    await sendEmail({
-      to: HR_MAIL,
-      subject: `New Application – ${fullName} (${jobTitle}) | Navora (MSL)`,
-      html: hrEmailHtml,
-      attachments: hrAttachments,
-    });
+    try {
+      await sendEmail({
+        to: HR_MAIL,
+        subject: `New Application – ${sanitizedData.fullName} (${jobTitle}) | Navora (MSL)`,
+        html: hrEmailHtml,
+        attachments: hrAttachments,
+      });
+    } catch (error) {
+      console.error("HR email failed:", error);
+    }
 
     /* =========================
        2️⃣ CANDIDATE THANK-YOU EMAIL
@@ -202,7 +270,9 @@ export const submitForm = async (req, res, next) => {
             <!-- BODY -->
             <tr>
               <td style="padding:20px; color:#333; font-size:14px; line-height:1.6;">
-                <p style="margin-top:0;">Dear <strong>${fullName}</strong>,</p>
+                <p style="margin-top:0;">Dear <strong>${
+                  sanitizedData.fullName
+                }</strong>,</p>
 
                 <p>
                   Thank you for applying for the position of 
@@ -271,11 +341,15 @@ export const submitForm = async (req, res, next) => {
 `;
 
     // Usage example:
-    await sendEmail({
-      to: email,
-      subject: `Thank You for Applying – ${jobTitle} | Navora (MSL)`,
-      html: candidateEmailHtml,
-    });
+    try {
+      await sendEmail({
+        to: sanitizedData.email,
+        subject: `Thank You for Applying – ${jobTitle} | Navora (MSL)`,
+        html: candidateEmailHtml,
+      });
+    } catch (error) {
+      console.error("Candidate email failed:", error);
+    }
 
     return res.status(200).json({
       success: true,

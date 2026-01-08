@@ -9,11 +9,26 @@ import submitRoutes from "./routes/submit.routes.js";
 
 const app = express();
 
-// 🌐 Enable CORS
-app.use(cors());
+// Allowed origins from .env
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
+// CORS middleware
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (like Postman or server-to-server)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 // 📦 Parse JSON requests
 app.use(express.json());
+// 📦 Parse URL-encoded requests
+app.use(express.urlencoded({ extended: true }));
 
 // 🔹 Mount Routes
 app.use("/api/employees", employeeRoutes);
