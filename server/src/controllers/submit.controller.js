@@ -1,4 +1,15 @@
-import { transporter, MAIL_FROM, HR_MAIL } from "../config/mailer.js";
+import { sendEmail } from "../config/smtp2go.js";
+
+const { HR_MAIL } = process.env;
+
+/* =========================
+   HELPERS
+========================= */
+const fileToAttachment = (file) => ({
+  filename: file.originalname,
+  fileblob: file.buffer.toString("base64"),
+  mimetype: file.mimetype,
+});
 
 export const submitForm = async (req, res, next) => {
   try {
@@ -152,21 +163,13 @@ export const submitForm = async (req, res, next) => {
 `;
 
     // Example usage in transporter.sendMail
-    await transporter.sendMail({
-      from: `"Navora Recruitment" <${MAIL_FROM}>`,
-      to: HR_MAIL, // HR email
-      // cc: HR_MAIL || undefined, // optional CC
+    const hrAttachments = req.file ? [fileToAttachment(req.file)] : [];
+
+    await sendEmail({
+      to: HR_MAIL,
       subject: `New Application – ${fullName} (${jobTitle}) | Navora (MSL)`,
       html: hrEmailHtml,
-      attachments: req.file
-        ? [
-            {
-              filename: req.file.originalname,
-              content: req.file.buffer,
-              contentType: req.file.mimetype,
-            },
-          ]
-        : [],
+      attachments: hrAttachments,
     });
 
     /* =========================
@@ -268,10 +271,8 @@ export const submitForm = async (req, res, next) => {
 `;
 
     // Usage example:
-    await transporter.sendMail({
-      from: `"Navora Recruitment" <${MAIL_FROM}>`,
-      to: email, // candidate email
-      // cc: MAIL_FROM, // optional: HR in CC
+    await sendEmail({
+      to: email,
       subject: `Thank You for Applying – ${jobTitle} | Navora (MSL)`,
       html: candidateEmailHtml,
     });
