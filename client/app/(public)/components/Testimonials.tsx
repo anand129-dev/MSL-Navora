@@ -45,7 +45,20 @@ Thank you once again for everything.`,
     image: "/candidate.png",
   },
   {
-    quote: `I’m writing to thank you for the incredible support throughout my job search. This feedback comes straight from my heart. You coached me, guided me, and stood by me during the entire process, even when decisions were difficult. I truly appreciate how you helped me evaluate my skills, make informed choices, and negotiate a role that offers both growth and a strong package.`,
+    quote: `Dear Roohi maam, Navora Team (MSL)
+I am writing this mail to thank you and provide a feedback for our amazing engagement during the whole job process.
+Its not been written from chatgpt but its coming straight from my heart.
+You have coached me , informed me and fought for me during the whole process , I am grateful.
+You reviewed my skills , and helped me to take conscious decisions even when initially they were not working in favour.
+You kept supporting me , gave clear guidance about the role and always made me aware about the bright side. 
+Even when I refused initially , you have taken that in right spirit, when i came back , you helped me again to get back into the game with more guidance .
+I am thankful to you , that in this process, you helped me secure a good package and growth path.
+I will remain always at your disposal and truly grateful.
+You knowledge of industry is enlightening and you make us aware of future job openings which we might get after a few years of experience.
+The way you negotiated on my behalf with company speaks a lot about your nature that you consider candidate not as a number but a human being , and understand their part of story during job process.
+Thank you for this amazing opportunity. 
+Best Regards
+`,
     name: "Shaswat Upreti",
     title: "Chief Engineer",
     image: "/candidate3.png",
