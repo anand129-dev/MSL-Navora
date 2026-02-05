@@ -11,6 +11,7 @@ type Job = {
   type: string;
   isActive: boolean;
   description: string;
+  createdAt: string;
 };
 
 export default function JobList() {
@@ -21,8 +22,21 @@ export default function JobList() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const date = (job: Job) => job.createdAt.split("T")[0];
+  const jobId = (job: Job) => job._id.slice(-6).toUpperCase();
+
   const [error, setError] = useState<string | null>(null);
   // const [starred, setStarred] = useState(false);
+
+  // ✅ Date formatter (date only)
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return; // server check
@@ -74,11 +88,11 @@ export default function JobList() {
             </h1>
             <h2 className="text-2xl md:text-4xl">Be the First to Apply</h2>
           </div>
-          <div>
+          {/* <div>
             <button className="rounded-full border border-blue-500 px-6 py-2 transition hover:bg-blue-500 hover:text-white">
               View All
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* ---------------- CONTENT AREA ---------------- */}
@@ -161,17 +175,18 @@ export default function JobList() {
                     <div className="//justify-between flex gap-4">
                       <p className="rounded-xl bg-slate-100 px-2 text-sm text-slate-800">
                         Date :{" "}
-                        <span className="font-semibold">Dec 21, 2025</span>
+                        <span className="font-semibold">{date(job)}</span>
                       </p>
                       <p className="rounded-xl bg-slate-100 px-2 text-sm">
-                        Job Id : <span className="font-semibold">MSL2334L</span>
+                        Job Id :{" "}
+                        <span className="font-semibold">{jobId(job)}</span>
                       </p>
                     </div>
                     <p className="text-xs leading-4 font-medium text-slate-500">
                       {job.description}
                     </p>
 
-                    <div className="flex gap-4">
+                    <div className="mt-auto flex gap-4 pt-4">
                       <button
                         onClick={() => router.push(`/jobs/${job._id}`)}
                         className="rounded-full border border-[#24439C] px-4 py-1 text-base font-medium text-[#24439C] hover:bg-[#24439C] hover:font-light hover:text-white"

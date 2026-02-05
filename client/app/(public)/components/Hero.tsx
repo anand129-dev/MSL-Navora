@@ -31,7 +31,7 @@ const HeroSection: FC<HeroSectionProps> = ({
   // --- Default Content Values ---
   title = "NAVORA Careers Portal",
   subtitle = "Search and apply for Maritime jobs, Shipping jobs and Energy jobs.",
-  description = "Our listings are updated regularly to help you find the right opportunity. Can’t find what you’re looking for? Sign up for job alerts — simply create an account or log in to stay notified about new openings that match your interests.",
+  description = "Our listings are updated regularly to help you find the right opportunity. For the most recent vacancies and how to apply, please visit our LinkedIn page.",
   button1Text = "Explore Jobs",
   button1Href = "/jobs",
   backgroundImageUrl = DEFAULT_BACKGROUND_IMAGE_URL, // Default image path
@@ -72,13 +72,28 @@ const HeroSection: FC<HeroSectionProps> = ({
             <div className="flex gap-4">
               <button
                 onClick={scrollToCurrentOpenings}
-                className="bg-secondary hover:text-secondary rounded-full px-4 py-2 font-medium text-white shadow-lg transition duration-150 ease-in-out hover:bg-white md:px-6 md:py-2 md:text-lg"
+                className="group text-secondary hover:bg-secondary flex items-center gap-2 rounded-full bg-white px-4 py-2 font-medium shadow-lg transition duration-300 ease-in-out hover:text-white md:px-6 md:py-2 md:text-lg"
               >
                 {button1Text}
+
+                <svg
+                  className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </button>
-              <button className="border-secondary text-secondary hover:bg-secondary rounded-full border bg-white px-4 py-2 font-medium shadow-lg transition duration-150 ease-in-out hover:text-white md:px-6 md:py-2 md:text-lg">
+
+              {/* <button className="border-secondary text-secondary hover:bg-secondary rounded-full border bg-white px-4 py-2 font-medium shadow-lg transition duration-150 ease-in-out hover:text-white md:px-6 md:py-2 md:text-lg">
                 {button2Text}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

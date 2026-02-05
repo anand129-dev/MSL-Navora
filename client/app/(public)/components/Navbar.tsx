@@ -35,9 +35,9 @@ export default function Nav() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden h-full flex-col items-end justify-between md:flex">
+        <div className="hidden h-full flex-col items-end justify-between lg:flex">
           {/* Top Buttons */}
-          <ul className="mb-1 flex items-center gap-px border-t border-white text-xs font-medium text-white">
+          <ul className="mb-1 flex hidden items-center gap-px border-t border-white text-xs font-medium text-white">
             <li className="cursor-pointer rounded-bl-md bg-[#CEA72B] px-2 py-1 hover:bg-[#24439C]">
               Upload CV
             </li>
@@ -52,7 +52,7 @@ export default function Nav() {
           </ul>
 
           {/* Bottom Nav + Search */}
-          <div className="mt-4 mb-auto flex items-center gap-8">
+          <div className="/mt-4 /mb-auto mx-auto mt-auto mb-auto flex items-center gap-8">
             <ul className="hidden items-center gap-8 font-medium text-[#24439C] md:flex">
               <li>
                 <a
@@ -65,12 +65,7 @@ export default function Nav() {
               </li>
               <li>
                 <a href="#" className="hover:text-[#CEA72B]">
-                  Career Advice
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-[#CEA72B]">
-                  Employers
+                  Services
                 </a>
               </li>
               <li>
@@ -84,9 +79,19 @@ export default function Nav() {
                 </a>
               </li>
               <li>
-    <Link href="/contactUs" className="hover:text-[#CEA72B]">Contact Us</Link>
-
-  {/* </button> */}
+                <a href="#" className="hover:text-[#CEA72B]">
+                  Insights
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-[#CEA72B]">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-[#CEA72B]">
+                  Contact Us
+                </a>
               </li>
             </ul>
           </div>
@@ -95,7 +100,7 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="focus:outline-none md:hidden"
+          className="focus:outline-none lg:hidden"
         >
           <svg
             className="h-7 w-7 text-gray-700"
@@ -117,20 +122,73 @@ export default function Nav() {
       <div
         className={`${
           open ? "block" : "hidden"
-        } border-t border-gray-200 bg-white px-6 pb-4 shadow-sm md:hidden`}
+        } border-t border-gray-200 bg-white px-6 pb-4 shadow-sm lg:hidden`}
         id="mobileMenu"
       >
         <ul className="flex flex-col gap-3 py-2 font-medium text-gray-700">
-          {menuItems.map((item) => (
-            <li key={item}>
-              <a
-                href="#"
-                className="block rounded-lg px-2 py-2 transition hover:bg-gray-100 hover:text-blue-600"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Services
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Executive Search
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Sectors
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Insights
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              About Us
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="hover:bg-primary/10 hover:text-secondary block rounded-lg px-2 py-2 transition hover:font-bold hover:text-[#CEA72B]"
+              onClick={() => router.push(`/`)}
+            >
+              Contact Us
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
