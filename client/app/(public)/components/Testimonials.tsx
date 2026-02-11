@@ -25,7 +25,7 @@ Warm regards,
 Arun D’Sa`,
     name: "Arun D'Sa",
     title: "Technical Superintendent",
-    image: "/candidate1.png",
+    image: "/candidates/candidate1.png",
   },
   {
     quote: `I would like to share my sincere feedback regarding my experience with Navora (MSL). It has been a pleasure interacting with your team throughout the process. The professionalism, clarity, and support extended to me were truly exceptional.
@@ -33,7 +33,7 @@ I appreciate the confidence you have shown in me. Your encouraging words "We bel
 Thank you once again for the opportunity and the positive experience. I look forward to staying connected.`,
     name: "Nishal Ranjan",
     title: "____",
-    image: "/candidate2.png",
+    image: "/candidates/candidate2.png",
   },
   {
     quote: `Dear Navora (MSL) Team,
@@ -42,7 +42,7 @@ I am happy to share that I have received an offer as a business analyst. I’m g
 Thank you once again for everything.`,
     name: "Anand Kumar Rowlo",
     title: "____",
-    image: "/candidate.png",
+    image: "/candidates/candidate.png",
   },
   {
     quote: `Dear Roohi maam, Navora Team (MSL)
@@ -61,6 +61,6 @@ Best Regards
 `,
     name: "Shaswat Upreti",
     title: "Chief Engineer",
-    image: "/candidate3.png",
+    image: "/candidates/candidate3.png",
   },
 ];
