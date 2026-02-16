@@ -78,5 +78,26 @@ Regards
     title: "___",
     image: "/candidates/candidate4.jpg",
   },
+  {
+    quote: `Dear Madam Roohi Mehta,
+Navora Team (MSL)
+
+Good Day,
+I am writing this message with a deep sense of gratitude and appreciation for everything you have done for me during my recruitment journey. From the very first interaction to well after receiving my offer letter, your support has been constant, reassuring, and genuinely caring.
+You did not just help me get a job—you stood by me at every step. From patiently preparing and refining my profile, guiding me through the entire recruitment process, answering even the smallest of my doubts, and ensuring that I felt confident and clear throughout, your involvement made a world of difference. My successful placement as Assistant Training Superintendent would not have been possible without your sincere efforts.
+What sets you apart is not only your deep understanding of the maritime industry and recruitment processes, but also your genuine commitment to the candidates you represent. Your willingness to clarify doubts even after placement, and your assurance of continued support in the future, reflects a rare level of integrity, ownership, and care.
+It is professionals like you who elevate recruitment from a transactional process to a meaningful professional partnership. I feel extremely fortunate to have been guided by you, and I hold Navora / Maritime Solutions Ltd. in the highest regard for its ethics, transparency, and people-centric approach.
+Thank you once again for your unwavering support and encouragement. I look forward to staying connected and will always recommend you and Navora (MSL) with complete confidence and respect.
+Thank You. 
+
+Best Regards,
+Hemant Arya
+Master
+
+`,
+    name: "Hemant Arya",
+    title: "___",
+    image: "/candidates/candidate1.png",
+  },
   
 ];
