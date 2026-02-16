@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes.js";
 import jobRoutes from "./routes/job.routes.js";
 import applicationRoutes from "./routes/application.routes.js";
 import submitRoutes from "./routes/submit.routes.js";
+import contactRoute from "./routes/contactRoutes.js";
 // import other routes later
 
 const app = express();
@@ -36,6 +37,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/submit", submitRoutes);
+app.use("/api/contact", contactRoute);
 
 // 🔹 Default route
 app.get("/", (req, res) => {
