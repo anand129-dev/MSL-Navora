@@ -63,4 +63,20 @@ Best Regards
     title: "Chief Engineer",
     image: "/candidates/candidate3.png",
   },
+  {
+    quote: `I Cdr Bala Murali (Retd.) writing this mail to express my sincere thanks for your support in securing a new role as Technical Data Manager . I’ve officially received my appointment letter today and I am excited to share this news.
+Few Key points i experienced with Roohi Mehta and the Navora (MSL)are as follows:-  
+Communication: I appreciate the timely updates and the clarity regarding the job description and mapping my experience accordingly. 
+Preparation: The briefing sessions before my interviews and timely coordination with the stakeholders were incredibly helpful and gave me the confidence I needed.
+Professionalism: The entire process felt seamless and well-organized from start to finish.
+Even though I have this job, I would like to stay on good terms with you for long-term career networking. 
+Thank you again for your guidance throughout this transition!
+Regards
+
+`,
+    name: "Bala Murali",
+    title: "___",
+    image: "/candidates/candidate4.jpg",
+  },
+  
 ];
