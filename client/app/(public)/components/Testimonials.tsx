@@ -97,7 +97,86 @@ Master
 `,
     name: "Hemant Arya",
     title: "___",
-    image: "/candidates/candidate1.png",
+    image: "/candidates/candidate.png",
   },
-  
+  {
+    quote: `I am writing to express my sincere gratitude and appreciation for the exceptional support I received from Ms. Roohi Mehta throughout the interview process for the position of Technical - Data Manager.
+Ms. Roohi went well above and beyond her responsibilities to ensure that the entire interview process was smooth, timely, and well-coordinated. Her proactive communication and genuine commitment made a significant difference in my experience. She took the time to align interview schedules, consistently followed up with hiring team, and provided guidance at every step — all of which helped me remain focused and confident throughout the process.
+In particular:
+•⁠  ⁠She ensured that interviews were scheduled efficiently and thoughtfully.
+•⁠  ⁠She communicated all updates promptly and clearly.
+•⁠  ⁠She supported me with insights and encouragement that contributed directly to my preparation.
+•⁠  ⁠She demonstrated professionalism, empathy, and unwavering dedication.
+Roohi's support not only facilitated a seamless interview experience, but also played an instrumental role in helping me secure a job that aligns perfectly with my professional goals and aspirations.
+It has truly been a pleasure working with her, and I would like to acknowledge and commend her impactful contribution.
+Thank you once again for your time and this opportunity.
+
+`,
+    name: "Zeeshan",
+    title: "___",
+    image: "/candidates/candidate5.png",
+  },
+  {
+    quote: `Hi Roohi,
+ 
+While aligning for the Program Manager opportunity through Navora Recruitment, I found the overall process to be highly considerate and respectful of the candidate’s time.
+ 
+The key highlights of the process were:
+
+Regular and timely updates provided to the candidate.
+Motivation and encouragement shared prior to each interview round.
+The efficiency and speed with which the entire process was completed, ensuring results were communicated without unnecessary delays.
+Clear and effective communication throughout the recruitment journey.
+
+Overall, it was a smooth and well-structured experience.
+
+Regards,
+Pooja Rajput
+`,
+    name: "Pooja Rajput",
+    title: "___",
+    image: "/candidates/candidate.png",
+  },
+  {
+    quote: `Hi Roohi,
+I wanted to take a moment to sincerely thank you for your incredible support throughout the entire process. From the very first resume screening, you’ve been approachable, encouraging, and extremely helpful.
+Your clear communication and reassuring attitude made the process smooth and comfortable for me. It truly made a difference, and I really appreciate the time and effort you put into guiding me at each step.
+Thank you once again for being so supportive—it has been a great experience interacting with you.
+Warm regards,
+Farhathul Afrah
+`,
+    name: "Farhathul Afrah",
+    title: "___",
+    image: "/candidates/candidate.png",
+  },
+  {
+    quote: `Dear Roohi,
+I am happy to share my feedback regarding my experience with Navora (MSL).
+Working with you  has been a very positive experience. Everyone I interacted with was incredibly kind and professional throughout the process. I truly appreciate the support and the seamless communication provided during my application.
+Thank you again for your assistance.
+Best regards,
+K boopathi
+`,
+    name: "K Boopathi",
+    title: "___",
+    image: "/candidates/candidate.png",
+  },
+    {
+    quote: `Hi Roohi,  
+I wanted to take a moment to share my feedback on our engagement so far for Sr. Solution Architect – AI & Agentic Systems.
+It has been a genuinely professional and well-managed experience. You’ve been clear, structured, and detail-oriented at every stage, while also being approachable and respectful in your communication. 
+The way you connected the role context, expectations, and growth potential helped create clarity and confidence in the process.
+I particularly appreciated the consistency in follow-ups, transparency around next steps, and the balanced way you represented both the role and the client (MSL).
+It reflects strong ownership of your work and a deep understanding of the hiring process. 
+Thank you for staying connected throughout and for handling the discussion with humility and proficiency. 
+It has been a positive experience interacting with you. 
+I hope this is the beginning of a long-term association where we can support and add value to each other professionally, and personally as well.
+Best Wishes, 
+Piyush Jain
+`,
+    name: "Piyush Jain",
+    title: "___",
+    image: "/candidates/candidate.png",
+  }
+
 ];
