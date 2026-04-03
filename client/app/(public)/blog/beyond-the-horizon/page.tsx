@@ -97,7 +97,10 @@ const App = () => {
                 src={author.image} 
                 alt={author.name}
                 className="w-14 h-14 rounded-full object-cover border-2 border-[#B8962D]/20 shadow-sm"
-                onError={(e) => { e.target.src = 'https://ui-avatars.com/api/?name=RV&background=1A365D&color=B8962D'; }}
+                onError={(e) => {
+  e.currentTarget.src =
+    'https://ui-avatars.com/api/?name=RV&background=1A365D&color=B8962D';
+}}
               />
               <div>
                 <h3 className="font-bold text-[#1A365D] text-lg leading-tight">{author.name}</h3>
@@ -313,7 +316,10 @@ const App = () => {
                   src={author.image} 
                   alt={author.name}
                   className="w-16 h-16 rounded-full object-cover grayscale hover:grayscale-0 transition-all mb-3 border-2 border-[#B8962D]/20 shadow-lg"
-                  onError={(e) => { e.target.src = 'https://ui-avatars.com/api/?name=RV&background=1A365D&color=B8962D'; }}
+                  onError={(e) => {
+  e.currentTarget.src =
+    'https://ui-avatars.com/api/?name=RV&background=1A365D&color=B8962D';
+}}
                 />
                 <h4 className="font-bold text-[#1A365D] text-xl">{author.name}</h4>
                 <p className="text-sm text-slate-500 font-medium mb-4">{author.position}</p>
