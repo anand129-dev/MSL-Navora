@@ -67,28 +67,20 @@ const App = () => {
         style={{ width: `${scrollProgress}%` }}
       />
 
-      <div className="max-w-4xl mx-auto px-6 py-20">
+      <div className="max-w-4xl mx-auto px-6 pt-8 pb-20">
         {/* Article Header */}
-        <header className="mb-12">
+        <header className="mb-6">
           <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-[#1A365D] text-[#B8962D] text-[10px] font-black uppercase tracking-[0.2em] rounded">
                 Career Strategy
               </span>
             </div>
-            {/* <button 
-              onClick={() => setBookmarked(!bookmarked)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold transition-all ${
-                bookmarked ? 'bg-yellow-50 border-[#B8962D] text-[#B8962D]' : 'border-slate-200 text-slate-500 hover:bg-slate-50'
-              }`}
-            >
-              <Bookmark size={14} fill={bookmarked ? "currentColor" : "none"} />
-              {bookmarked ? 'Saved' : 'Save'}
-            </button> */}
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1A365D] leading-[1.1] mb-10 tracking-tight">
-            𝐁𝐞𝐲𝐨𝐧𝐝 𝐭𝐡𝐞 𝐇𝐨𝐫𝐢𝐳𝐨𝐧: Mapping the Global Maritime Landscape
+          <h1 className="text-4xl md:text-4xl lg:text-5xl font-extrabold text-[#1A365D] leading-[1.1] mb-10 tracking-tight">
+            There are so many fields... but how do I even know what fields exist?
+            {/* “𝐓𝐡𝐞𝐫𝐞 𝐚𝐫𝐞 𝐬𝐨 𝐦𝐚𝐧𝐲 𝐟𝐢𝐞𝐥𝐝𝐬… 𝐛𝐮𝐭 𝐡𝐨𝐰 𝐝𝐨 𝐈 𝐞𝐯𝐞𝐧 𝐤𝐧𝐨𝐰 𝐰𝐡𝐚𝐭 fields 𝐞𝐱𝐢𝐬𝐭?” */}
           </h1>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-slate-100 py-8">
@@ -130,7 +122,7 @@ const App = () => {
         {/* Content Body */}
         <article className="prose prose-slate prose-lg max-w-none text-slate-700 leading-relaxed">
           
-          <div className="bg-[#1A365D] text-white p-8 rounded-2xl mb-12 shadow-xl shadow-blue-900/10 relative overflow-hidden">
+          {/* <div className="bg-[#1A365D] text-white p-8 rounded-2xl mb-12 shadow-xl shadow-blue-900/10 relative overflow-hidden">
             <h4 className="text-[#B8962D] font-black text-xs uppercase tracking-widest mb-4">𝐒𝐞𝐪𝐮𝐞𝐥</h4>
             <p className="text-2xl font-serif italic m-0 relative z-10 leading-snug">
               “𝐓𝐡𝐞𝐫𝐞 𝐚𝐫𝐞 𝐬𝐨 𝐦𝐚𝐧𝐲 𝐟𝐢𝐞𝐥𝐝𝐬… 𝐛𝐮𝐭 𝐡𝐨𝐰 𝐝𝐨 𝐈 𝐞𝐯𝐞𝐧 𝐤𝐧𝐨𝐰 𝐰𝐡𝐚𝐭 fields 𝐞𝐱𝐢𝐬𝐭?”
@@ -138,7 +130,7 @@ const App = () => {
             <div className="absolute top-0 right-0 p-4 opacity-10">
               <Compass size={120} />
             </div>
-          </div>
+          </div> */}
 
           <p className="text-xl text-slate-600 mb-6 leading-relaxed">
             After my previous post, a Marine Engineer asked me a very honest question:
