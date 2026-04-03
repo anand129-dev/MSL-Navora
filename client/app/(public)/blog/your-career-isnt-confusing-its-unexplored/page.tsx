@@ -2,6 +2,7 @@
 
 import Article from "./Article";
 
+
 export const metadata = {
   title: "There are so many fields... but how do I even know what fields exist?",
   description:

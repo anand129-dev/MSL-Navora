@@ -1,4 +1,5 @@
 "use client";
+import { track } from "@vercel/analytics";
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -28,6 +29,14 @@ const Article = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+       // slight delay ensures reliability
+  setTimeout(() => {
+    track("Article Viewed", {
+      page: "your-career-isnt-confusing-its-unexplored",
+      title: "Your Career Isn’t Confusing. It’s Unexplored.",
+    });
+  }, 100);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
