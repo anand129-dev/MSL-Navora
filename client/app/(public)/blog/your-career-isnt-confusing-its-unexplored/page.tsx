@@ -16,8 +16,8 @@ export const metadata = {
     images: [
       {
         url: "https://navora.maritimesolutionsltd.com/banner/your-career-isnt-confusing-its-unexplored.png", // 👈 REQUIRED
-        // width: 1200,
-        // height: 627,
+        width: 1200,
+        height: 627,
       },
     ],
     type: "article",
