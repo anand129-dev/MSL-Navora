@@ -76,7 +76,7 @@ const Article = () => {
           style={{ width: `${scrollProgress}%` }}
         />
   
-        <div className="max-w-4xl mx-auto px-6 pt-8 pb-20">
+        <div className="max-w-4xl mx-auto px-6 pt-8 pb-8">
           {/* Article Header */}
           <header className="mb-6">
             <div className="flex items-center justify-between mb-8">
@@ -87,12 +87,20 @@ const Article = () => {
               </div>
             </div>
   
-            <h1 className="text-4xl md:text-4xl lg:text-5xl font-extrabold text-[#1A365D] leading-[1.1] mb-10 tracking-tight">
+            <h1 className="text-4xl md:text-4xl lg:text-5xl font-extrabold text-[#1A365D] leading-[1.1] mb-6 tracking-tight">
               There are so many fields... but how do I even know what fields exist?
-              {/* “𝐓𝐡𝐞𝐫𝐞 𝐚𝐫𝐞 𝐬𝐨 𝐦𝐚𝐧𝐲 𝐟𝐢𝐞𝐥𝐝𝐬… 𝐛𝐮𝐭 𝐡𝐨𝐰 𝐝𝐨 𝐈 𝐞𝐯𝐞𝐧 𝐤𝐧𝐨𝐰 𝐰𝐡𝐚𝐭 fields 𝐞𝐱𝐢𝐬𝐭?” */}
             </h1>
-  
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-slate-100 py-8">
+    {/* Aritle Banner */}
+          {/* Banner Image */}
+        <div className="mb-8">
+          <img
+            src="/banner/your-career-isnt-confusing-its-unexplored.png"
+            alt="Your Career Isn’t Confusing. It’s Unexplored."
+            className="w-full h-auto rounded-2xl object-cover shadow-lg border border-slate-100 hover:scale-[1.02] transition-transform duration-500"
+          />
+        </div>
+
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-slate-100 py-2">
               <div className="flex items-center gap-4">
                 <img 
                   src={author.image} 
