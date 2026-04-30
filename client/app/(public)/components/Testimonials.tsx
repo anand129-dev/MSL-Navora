@@ -161,7 +161,7 @@ K boopathi
     title: "___",
     image: "/candidates/candidate.png",
   },
-    {
+  {
     quote: `Hi Roohi,  
 I wanted to take a moment to share my feedback on our engagement so far for Sr. Solution Architect – AI & Agentic Systems.
 It has been a genuinely professional and well-managed experience. You’ve been clear, structured, and detail-oriented at every stage, while also being approachable and respectful in your communication. 
@@ -178,7 +178,7 @@ Piyush Jain
     title: "___",
     image: "/candidates/candidate.png",
   },
-      {
+  {
     quote: `Good day
 I recently joined as Training Superintendent, Chennai through  Navora Recruitment, the specialized arm of Maritimesolutionsltd.
 I would like to share my appreciation for the excellent support provided throughout the recruitment process. The entire experience was smooth and well-coordinated, and everything was taken care of professionally until my date of joining.
@@ -188,6 +188,16 @@ Thank you once again for the outstanding assistance.
     name: "Jawahar Perumal",
     title: "___",
     image: "/candidates/candidate.png",
-  }
-
+  },
+  {
+    quote: `Good day
+I recently joined as Training Superintendent, Chennai through  Navora Recruitment, the specialized arm of Maritimesolutionsltd.
+I would like to share my appreciation for the excellent support provided throughout the recruitment process. The entire experience was smooth and well-coordinated, and everything was taken care of professionally until my date of joining.
+I am especially grateful to Ms. Roohi Mehta for her continuous follow-up and dedicated support each day. She did a splendid job in ensuring a seamless process.
+Thank you once again for the outstanding assistance.
+`,
+    name: "Amit Kumar",
+    title: "___",
+    image: "/candidates/candidate6.png",
+  },
 ];
