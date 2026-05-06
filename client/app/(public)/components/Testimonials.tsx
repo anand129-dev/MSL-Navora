@@ -200,4 +200,16 @@ Thank you once again for the outstanding assistance.
     title: "___",
     image: "/candidates/candidate6.png",
   },
+  {
+    quote: `Dear Roohi,
+Greetings to you and your team,
+I would like to take a moment to express my sincere appreciation for the support and assistance provided during my recent job search. Your professionalism, prompt communication, and valuable guidance throughout the process were truly commendable and greatly appreciated.
+Although the placement did not materialize this time, the overall experience was both positive and encouraging. The level of engagement and dedication shown reflects very highly on your team.
+Thank you once again for your efforts. I look forward to the opportunity to work together on future prospects.
+Kind regards, 
+`,
+    name: "Colin Ambrose Selvam",
+    title: "___",
+    image: "/candidates/candidate.png",
+  },
 ];
