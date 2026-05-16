@@ -212,4 +212,15 @@ Kind regards,
     title: "___",
     image: "/candidates/candidate.png",
   },
+    {
+    quote: `Good day,
+i just wanted to share my feedback for the recent communication. 
+I had a very positive experience with maritime solutions ltd. The entire process was professional, smooth, and well-organized. Communication was always clear, and you very supportive throughout the process.
+I would especially like to thank you (Roohi Mehta) for the excellent assistance and dedication. your professionalism, quick responses, and willingness to help made everything much easier . It is rare to meet someone so committed and genuinely supportive in this industry. I hope to work with you again in the future for more opportunities.
+Thanks & best regards
+`,
+    name: "Puneet Malhotra ",
+    title: "___",
+    image: "/candidates/candidate.png",
+  },
 ];
